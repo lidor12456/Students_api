@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      .deafult-table {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
       .table {
         display: flex;
         flex-direction: column;
@@ -17,6 +22,9 @@
       }
       .cell {
         width: 15%;
+      }
+      .hide {
+        visibility: hidden;
       }
     </style>
   </head>
@@ -32,8 +40,10 @@
     </select>
     <input id="userInput" type="text" placeholder="Search.." />
     <button id="submit" type="submit">Submit</button>
+    <button id="reload" type="reload">Reload</button>
 
     <div class="table"></div>
+    <div class="deafult-table"></div>
     <h1></h1>
     <script src="./app.js"></script>
   </body>

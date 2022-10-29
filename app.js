@@ -1,8 +1,9 @@
 const table = document.querySelector('.table');
+const deafult_table = document.querySelector('.deafult-table');
 const h1 = document.querySelector("h1");
-
 let input = document.querySelector("#userInput");
 let submit = document.querySelector("#submit");
+let reloadd = document.querySelector("#reload");
 const backUp = [
     {
         "id": "011",
@@ -258,7 +259,9 @@ const backUp = [
 
 
 
-
+reloadd.addEventListener ('click', ()=> {
+    window.location.reload()
+})
 const paintRow = (arrOfData) => {
     const row = document.createElement('div');
     row.classList.add('row');
@@ -270,7 +273,7 @@ const paintRow = (arrOfData) => {
       row.appendChild(cell);
     });
   
-    table.appendChild(row);
+    deafult_table.appendChild(row);
   };
 
 
@@ -305,10 +308,10 @@ const allUsers =  async () => {
 
 
 allUsers().then((state) => {
-    // state.forEach((student) => {
-    //     const newArr = [student.id,student.firstName, student.lastName , student.age, student.hobby, student.capsule, student.city ];
-    //     paintRow(newArr);
-    //   });
+    state.forEach((student) => {
+        const newArr = [student.id,student.firstName, student.lastName , student.age, student.hobby, student.capsule, student.city ];
+        paintRow(newArr);
+      });
 
       const byFirstName = (key_name, char , array) => {
      
@@ -323,6 +326,8 @@ allUsers().then((state) => {
             filteredData.push( array[j])
         }
         console.log(filteredData)
+        deafult_table.classList.add('hide');
+
         let ul = document.createElement("ul");
         table.appendChild(ul);
         for (let i=0; i<filteredData.length; i ++) {
