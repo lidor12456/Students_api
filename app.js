@@ -1,60 +1,13 @@
 const table = document.querySelector('.table');
 const h1 = document.querySelector("h1");
-let allUsersDetails = [];
 
-
-const paintRow = (arrOfData) => {
-    const row = document.createElement('div');
-    row.classList.add('row');
-  
-    arrOfData.forEach((e) => {
-      const cell = document.createElement('div');
-      cell.classList.add('cell');
-      cell.textContent = e;
-      row.appendChild(cell);
-    });
-  
-    table.appendChild(row);
-  };
-
-
-const fetchData = async (url) => {
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-    //   console.log(data);
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
-  }; //will return promise
-
-//   save all users to one array
-const allUsers =  async () => {
-    const usersArr  = await fetchData("https://capsules7.herokuapp.com/api/group/one");
-    const usersArr2 = await fetchData("https://capsules7.herokuapp.com/api/group/two");
-
-    const connectedArr = usersArr.concat(usersArr2);
-    
-   
-    for (let i=0; i<connectedArr.length; i++) {
-        let id = connectedArr[i].id;
-        const detail = await fetchData (`https://capsules7.herokuapp.com/api/user/${id}`)
-        allUsersDetails.push(detail)
-    }    
-   return allUsersDetails;
-}
-
-allUsers();
-console.log(allUsersDetails);
-
-
-
+let input = document.querySelector("#userInput");
+let submit = document.querySelector("#submit");
 const backUp = [
     {
         "id": "011",
         "gender": "female",
-        "firstName": "מירי",
+        "firstName": "zzרי",
         "lastName": "פורמן",
         "hobby": "ציור",
         "age": 26,
@@ -303,10 +256,115 @@ const backUp = [
     }
 ]
 
-backUp.forEach((student) => {
-    const newArr = [student.id,student.firstName, student.lastName , student.age, student.hobby, student.capsule, student.city ];
-    paintRow(newArr);
-  });
+
+
+
+const paintRow = (arrOfData) => {
+    const row = document.createElement('div');
+    row.classList.add('row');
+  
+    arrOfData.forEach((e) => {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      cell.textContent = e;
+      row.appendChild(cell);
+    });
+  
+    table.appendChild(row);
+  };
+
+
+
+
+
+
+
+
+
+const fetchData = async (url) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+    //   console.log(data);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }; //will return promise
+
+//   save all users to one array
+const allUsers =  async () => {
+    let allUsersDetails = [];
+    const usersArr  = await fetchData("https://capsules7.herokuapp.com/api/group/one");
+    const usersArr2 = await fetchData("https://capsules7.herokuapp.com/api/group/two");
+
+    const connectedArr = usersArr.concat(usersArr2);
+    
+   
+    for (let i=0; i<connectedArr.length; i++) {
+        let id = connectedArr[i].id;
+        const detail = await fetchData (`https://capsules7.herokuapp.com/api/user/${id}`)
+        allUsersDetails.push(detail)
+    }    
+    return allUsersDetails;
+}
+
+
+allUsers().then((state) => {
+    state.forEach((student) => {
+        const newArr = [student.id,student.firstName, student.lastName , student.age, student.hobby, student.capsule, student.city ];
+        paintRow(newArr);
+      });
+
+      const byFirstName = (key_name, char , array) => {
+     
+
+        if (key_name === "firstName") {
+            array = array.map(x => x.firstName)
+        }
+       
+        const filteredData = []
+        for (var j=0; j<array.length; j++) {
+            if (array[j].match(char )) 
+            filteredData.push( array[j])
+        }
+        console.log(filteredData)
+    }
+      const byLastName = (key_name, char , array) => {
+         
+    
+        if (key_name === "lastName") {
+            array = array.map(x => x.lastName)
+        }
+       
+        const filteredData = []
+        for (var j=0; j<array.length; j++) {
+            if (array[j].match(char )) 
+            filteredData.push( array[j])
+        }
+        console.log(filteredData)
+    }
+    
+    submit.addEventListener ('click', () => {
+        let choose = document.querySelector("#keys")
+        let userKey = choose.value;
+    
+        if ( userKey == "firstName") {
+            byFirstName ("firstName",input.value,state);
+        }
+        if ( userKey == "lastName") {
+            byLastName ("lastName",input.value,state);
+        }
+    })
+    
+
+
+}); 
+
+
+
+
+
 
 
   
