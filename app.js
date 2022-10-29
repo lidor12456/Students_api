@@ -275,12 +275,6 @@ const paintRow = (arrOfData) => {
 
 
 
-
-
-
-
-
-
 const fetchData = async (url) => {
     try {
       const response = await fetch(url);
@@ -311,10 +305,10 @@ const allUsers =  async () => {
 
 
 allUsers().then((state) => {
-    state.forEach((student) => {
-        const newArr = [student.id,student.firstName, student.lastName , student.age, student.hobby, student.capsule, student.city ];
-        paintRow(newArr);
-      });
+    // state.forEach((student) => {
+    //     const newArr = [student.id,student.firstName, student.lastName , student.age, student.hobby, student.capsule, student.city ];
+    //     paintRow(newArr);
+    //   });
 
       const byFirstName = (key_name, char , array) => {
      
@@ -329,7 +323,17 @@ allUsers().then((state) => {
             filteredData.push( array[j])
         }
         console.log(filteredData)
+        let ul = document.createElement("ul");
+        table.appendChild(ul);
+        for (let i=0; i<filteredData.length; i ++) {
+            let li = document.createElement("li");
+            li.textContent = filteredData[i];
+            ul.appendChild(li);
+        }
     }
+
+
+
       const byLastName = (key_name, char , array) => {
          
     
@@ -343,6 +347,76 @@ allUsers().then((state) => {
             filteredData.push( array[j])
         }
         console.log(filteredData)
+        let ul = document.createElement("ul");
+        table.appendChild(ul);
+        for (let i=0; i<filteredData.length; i ++) {
+            let li = document.createElement("li");
+            li.textContent = filteredData[i];
+            ul.appendChild(li);
+        }
+    }
+      const byHobby = (key_name, char , array) => {
+         
+    
+        if (key_name === "hobby") {
+            array = array.map(x => x.hobby)
+        }
+       
+        const filteredData = []
+        for (var j=0; j<array.length; j++) {
+            if (array[j].match(char )) 
+            filteredData.push( array[j])
+        }
+        console.log(filteredData)
+        let ul = document.createElement("ul");
+        table.appendChild(ul);
+        for (let i=0; i<filteredData.length; i ++) {
+            let li = document.createElement("li");
+            li.textContent = filteredData[i];
+            ul.appendChild(li);
+        }
+    }
+      const byCity = (key_name, char , array) => {
+         
+    
+        if (key_name === "city") {
+            array = array.map(x => x.city)
+        }
+       
+        const filteredData = []
+        for (var j=0; j<array.length; j++) {
+            if (array[j].match(char )) 
+            filteredData.push( array[j])
+        }
+        console.log(filteredData)
+        let ul = document.createElement("ul");
+        table.appendChild(ul);
+        for (let i=0; i<filteredData.length; i ++) {
+            let li = document.createElement("li");
+            li.textContent = filteredData[i];
+            ul.appendChild(li);
+        }
+    }
+      const byId = (key_name, char , array) => {
+         
+    
+        if (key_name === "id") {
+            array = array.map(x => x.id)
+        }
+       
+        const filteredData = []
+        for (var j=0; j<array.length; j++) {
+            if (array[j].match(char )) 
+            filteredData.push( array[j])
+        }
+        console.log(filteredData)
+        let ul = document.createElement("ul");
+        table.appendChild(ul);
+        for (let i=0; i<filteredData.length; i ++) {
+            let li = document.createElement("li");
+            li.textContent = filteredData[i];
+            ul.appendChild(li);
+        }
     }
     
     submit.addEventListener ('click', () => {
@@ -354,6 +428,15 @@ allUsers().then((state) => {
         }
         if ( userKey == "lastName") {
             byLastName ("lastName",input.value,state);
+        }
+        if ( userKey == "hobby") {
+            byHobby ("hobby",input.value,state);
+        }
+        if ( userKey == "city") {
+            byCity ("city",input.value,state);
+        }
+        if ( userKey == "id") {
+            byId ("id",input.value,state);
         }
     })
     
